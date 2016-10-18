@@ -3,20 +3,20 @@
 use Image::Magick;
 
 $filename = '/tmp/screen.png';
+$fileTree = '/home/bob/Downloads/Programs/i3';
 
-$randomFile = `find -type f | shuf -n 1`;
+$randomFile = `find $fileTree -type f | shuf -n 1`;
 open(FILE, $randomFile);
 $/ = undef;
 $text = <FILE>;
-print $text;
 close(FILE);
 
 $image = Image::Magick->new;
-$image->Set(size=>'900x500');
+$image->Set(size=>'1920x1080');
 $image->ReadImage('canvas:black');
 $image->Annotate(
   font=>'/home/bob/.fonts/fira/FiraMono-Bold.ttf',
-  pointsize=>30,
+  pointsize=>24,
   fill=>'white',
   gravity=>'NorthWest',
   text=>$text
@@ -25,5 +25,5 @@ $image->Annotate(
 open(IMAGE, ">$filename");
 $image->Write(file=>\*IMAGE, filename=>"$filename");
 close(IMAGE);
-system("feh --bg-max /tmp/screen.png");
+system("feh --bg-max $filename");
 
