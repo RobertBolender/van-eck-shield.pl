@@ -17,7 +17,7 @@ $text =~ s/  +/ /g;
 $text =~ s/(.{500})/$1\n/g;
 
 my $image = Image::Magick->new;
-$image->Set(size=>'960x1080');
+$image->Set(size=>'1980x1080');
 $image->ReadImage('canvas:black');
 $image->Colorize('#333');
 $image->Annotate(
