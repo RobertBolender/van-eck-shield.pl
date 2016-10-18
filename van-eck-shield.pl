@@ -3,14 +3,16 @@
 use Image::Magick;
 
 $filename = '/tmp/screen.png';
-$fileTree = '/home/bob/Downloads/Programs/i3';
+$sourceFile = '/home/bob/projects/personal/shakespeare/shakespeare.txt';
 
-$randomFile = `find $fileTree -type f | shuf -n 1`;
+$random = int(rand(120000));
+$randomEnd = $random + 100;
 
-open(FILE, $randomFile);
-$/ = undef;
-$text = <FILE>;
+open(FILE, $sourceFile);
+@lines = <FILE>;
 close(FILE);
+
+$text = join('', @lines[$random..$randomEnd]);
 
 $image = Image::Magick->new;
 $image->Set(size=>'1920x1080');
