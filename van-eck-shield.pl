@@ -22,7 +22,7 @@ $image->ReadImage('canvas:black');
 $image->Colorize('#333');
 $image->Annotate(
   font=>'/home/bob/.fonts/fira/FiraMono-Regular.ttf',
-  pointsize=>24,
+  pointsize=>20,
   fill=>'white',
   gravity=>'NorthWest',
   text=>$text
