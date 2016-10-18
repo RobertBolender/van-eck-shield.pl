@@ -17,3 +17,6 @@ I was able to get it to work with this in my cron:
 DISPLAY=:0.0 XAUTHORITY=/home/bob/.Xauthority /home/bob/van-eck-shield.pl
 ```
 
+Screenshot:
+![Example image](/van-eck-shield.png?raw=true "Van Eck Shield")
+
