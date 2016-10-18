@@ -6,6 +6,7 @@ $filename = '/tmp/screen.png';
 $fileTree = '/home/bob/Downloads/Programs/i3';
 
 $randomFile = `find $fileTree -type f | shuf -n 1`;
+
 open(FILE, $randomFile);
 $/ = undef;
 $text = <FILE>;
@@ -15,7 +16,7 @@ $image = Image::Magick->new;
 $image->Set(size=>'1920x1080');
 $image->ReadImage('canvas:black');
 $image->Annotate(
-  font=>'/home/bob/.fonts/fira/FiraMono-Bold.ttf',
+  font=>'/home/bob/.fonts/fira/FiraMono-Regular.ttf',
   pointsize=>24,
   fill=>'white',
   gravity=>'NorthWest',
@@ -23,7 +24,9 @@ $image->Annotate(
 );
 
 open(IMAGE, ">$filename");
-$image->Write(file=>\*IMAGE, filename=>"$filename");
+$x = $image->Write(file=>\*IMAGE, filename=>"$filename");
 close(IMAGE);
-system("feh --bg-max $filename");
+die $x if $x;
+$x = exec("feh --bg-max $filename");
+die $x if $x;
 
