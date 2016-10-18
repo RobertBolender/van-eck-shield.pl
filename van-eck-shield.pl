@@ -15,7 +15,7 @@ close(FILE);
 $text = join('', @lines[$random..$randomEnd]);
 
 $image = Image::Magick->new;
-$image->Set(size=>'1920x1080');
+$image->Set(size=>'960x1080');
 $image->ReadImage('canvas:black');
 $image->Annotate(
   font=>'/home/bob/.fonts/fira/FiraMono-Regular.ttf',
@@ -29,6 +29,6 @@ open(IMAGE, ">$filename");
 $x = $image->Write(file=>\*IMAGE, filename=>"$filename");
 close(IMAGE);
 die $x if $x;
-$x = exec("feh --bg-max $filename");
+$x = exec("feh --bg-tile $filename");
 die $x if $x;
 
