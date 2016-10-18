@@ -5,14 +5,11 @@ use warnings;
 use Image::Magick;
 
 my $filename = '/tmp/screen.png';
-my $sourceFile = '/home/bob/projects/personal/shakespeare/shakespeare.txt';
+my $sourceDir = shift || '/home/bob/projects/personal/van-eck-shield/sources';
+my @lines = `find $sourceDir -type f | xargs cat`;
 
-my $random = int(rand(120000));
+my $random = int(rand(scalar @lines));
 my $randomEnd = $random + 1000;
-
-open(FILE, $sourceFile);
-my @lines = <FILE>;
-close(FILE);
 
 my $text = join('', @lines[$random..$randomEnd]);
 $text =~ s/\n//g;
