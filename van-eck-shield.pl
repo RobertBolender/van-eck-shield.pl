@@ -2,10 +2,11 @@
 use strict;
 use warnings;
 
+use File::Spec;
+use File::Basename;
 use Image::Magick;
 
-my $filename = '/tmp/screen.png';
-my $sourceDir = shift || '/home/bob/projects/personal/van-eck-shield/sources';
+my $sourceDir = File::Spec->catdir(dirname(__FILE__), 'sources');
 my @lines = `find $sourceDir -type f | xargs cat`;
 
 my $random = int(rand(scalar @lines));
@@ -28,6 +29,7 @@ $image->Annotate(
   text=>$text
 );
 
+my $filename = '/tmp/screen.png';
 open(IMAGE, ">$filename");
 $image->Write(file=>\*IMAGE, filename=>"$filename");
 close(IMAGE);
