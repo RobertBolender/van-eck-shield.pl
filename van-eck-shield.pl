@@ -1,22 +1,25 @@
 #!/usr/bin/perl
+use strict;
+use warnings;
 
 use Image::Magick;
 
-$filename = '/tmp/screen.png';
-$sourceFile = '/home/bob/projects/personal/shakespeare/shakespeare.txt';
+my $filename = '/tmp/screen.png';
+my $sourceFile = '/home/bob/projects/personal/shakespeare/shakespeare.txt';
 
-$random = int(rand(120000));
-$randomEnd = $random + 100;
+my $random = int(rand(120000));
+my $randomEnd = $random + 100;
 
 open(FILE, $sourceFile);
-@lines = <FILE>;
+my @lines = <FILE>;
 close(FILE);
 
-$text = join('', @lines[$random..$randomEnd]);
+my $text = join('', @lines[$random..$randomEnd]);
 
-$image = Image::Magick->new;
+my $image = Image::Magick->new;
 $image->Set(size=>'960x1080');
 $image->ReadImage('canvas:black');
+$image->Colorize('#333');
 $image->Annotate(
   font=>'/home/bob/.fonts/fira/FiraMono-Regular.ttf',
   pointsize=>24,
@@ -26,9 +29,7 @@ $image->Annotate(
 );
 
 open(IMAGE, ">$filename");
-$x = $image->Write(file=>\*IMAGE, filename=>"$filename");
+$image->Write(file=>\*IMAGE, filename=>"$filename");
 close(IMAGE);
-die $x if $x;
-$x = exec("feh --bg-tile $filename");
-die $x if $x;
+system("feh --bg-tile $filename");
 
